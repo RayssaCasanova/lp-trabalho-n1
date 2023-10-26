@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Salvar Usuário</title>
+    <a href="listar.html">Listar Usuários</a>
+    <style>
+         a {
+            float: right;
+            display: block;
+            width: 10%;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #00962a;
+            border-radius: 5px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6ffcd;
+        }
+        form {
+            width: 80%;
+            margin: 20px auto;
+        }
+        label {
+            display: block;
+            margin-top: 20px;
+        }
+        input[type=text] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            color: #00972b;
+            border-color: #00972b;
+        }
+        h1, h2, label {
+            color: #5d1515;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lojas Mike Sol ❂ </h1>
+    <h2 class="subtitle">Bem-vindo(a)!</h2>
+    <h2>Salvar Cliente</h2>
+
+    <form id="clienteForm">
+        
+
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome"><br>
+        
+        <label for="telefone">Telefone:</label><br>
+        <input type="text" id="telefone" name="telefone"><br>
+
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email"><br>
+        
+        <label for="cpf">CPF:</label><br>
+        <input type="text" id="cpf" name="cpf"><br>
+
+        <input type="submit" value="Salvar">
+    </form>
+
+    <script>
+        // Use fetch para enviar os dados do formulário para a API quando o formulário for enviado
+        document.getElementById('clienteForm').addEventListener('submit', function(event) { // quando o formulário for enviado
+            event.preventDefault(); // previne o comportamento padrão do formulário
+            
+            const nome = document.getElementById('nome').value; // pega o valor do campo nome
+            const telefone = document.getElementById('telefone').value; // pega o valor do campo id
+            const email = document.getElementById('email').value; // pega o valor do campo email
+            const cpf = document.getElementById('cpf').value; // pega o valor do campo email
+
+            fetch('/api/data', {    // envia os dados do formulário para a API
+                method: 'POST', // método POST
+                headers: { // cabeçalho
+                    'Content-Type': 'application/json', // tipo de conteúdo JSON
+                },
+                body: JSON.stringify({ nome, telefone, email, cpf }), // transforma os dados do formulário em JSON
+            })
+            .then(response => response.json()) // transforma a resposta em JSON
+            .then(data => { // pega os dados
+                alert(`Cliente salvo com sucesso: ${data.nome}`); // exibe um alerta com o nome do usuário salvo
+            });
+        });
+    </script>
+</body>
+</html>
